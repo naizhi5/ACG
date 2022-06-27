@@ -1,0 +1,130 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class duihua : MonoBehaviour
+{
+    public Text duihuakuang;//对话框文本
+    public GameObject Button1;
+    public Text Button1_text;
+    public GameObject Button2;
+    public Text Button2_text;
+    public GameObject Buttonjixu;
+    public GameObject LiHui;//立绘底板
+    public Sprite laopo1, laopo2;//两个图片
+    int AA=0;//进度
+    int n = 0;//小进度
+    int anniu;//按钮选项
+    public AudioSource bejiyiy;
+    public jueseshuxing Shuxin;
+   
+
+    public void Xuanze1_Button()
+    {
+        Button1.SetActive(false);
+        Button2.SetActive(false);
+        Buttonjixu.SetActive(true);
+        anniu = 1;
+        Duihua(AA);
+        bejiyiy.Play();
+    }
+    public void Xuanze2_Button()
+    {
+        Button1.SetActive(false);
+        Button2.SetActive(false);
+        Buttonjixu.SetActive(true);
+        anniu = 2;
+        Duihua(AA);
+    }
+
+    public void Continue_Button()
+    {
+        Duihua(AA);
+    }
+
+    void Duihua(int aa)
+    {
+        if (aa == 0)
+        switch (n)
+        {
+            case 0: duihuakuang.text = "开始";n++;break;
+            case 1: duihuakuang.text = "？:您好，您还在听我说话嘛？喂？喂？？";n++;break;
+            case 2: duihuakuang.text = "滴-滴-滴-"; n++;break;
+            case 3: duihuakuang.text = "?:那边好像没有声音了，好！行动！"; n++; break;
+                case 4: duihuakuang.text = "?:快把xyl叫过来！yzb他需要妹子！！！"; n++; break;
+                case 5: duihuakuang.text = "xl:找不到xyl，我来看看"; n++; break;
+                case 6: duihuakuang.text = "？：好！但是情况不是很乐观"; n++; break;
+                case 7: duihuakuang.text = "xyl：让开！让开！我来看看"; n++; break;
+                case 8: duihuakuang.text = "xyl：唉,早知道就给他介绍妹子了，就不至于这样"; n++; break;
+                case 9: duihuakuang.text = "接下来会有两个选项"; n++; break;
+                case 10:
+              duihuakuang.text = "请选择一个选项";
+              Button1_text.text = "我选择不救杨泽彬";
+              Button2_text.text = "我选不救他";
+              Button1.SetActive(true);
+              Button2.SetActive(true);
+              Buttonjixu.SetActive(false);
+              n++;break;
+
+
+            default:
+            if (anniu == 1)
+            {
+                duihuakuang.text = "你选择了救他就要承受他的痛苦！";
+                AA = 1;
+            }
+            if (anniu == 2)
+            {
+                duihuakuang.text = "很好，他会慢慢的死去";
+                AA=2;
+            }
+                    n = 0;break;
+        }
+        else if (aa == 1)
+       switch(n)
+        {
+                case 0: duihuakuang.text = "既然你要救他，那就来吧";n++;break;
+                case 1:
+                    duihuakuang.text = "---滴---滴--快醒醒";n++;break;
+
+
+        }
+        else if (aa == 2)
+        switch(n)
+        {
+                case 0: duihuakuang.text = "你的选择害死了他";n++;break;
+                case 1: duihuakuang.text = "改变你的名字xyl";
+                    Shuxin.juese[Shuxin.n].namne = "xyl";
+                    Shuxin.xianshi();
+                    n = 0;AA = 3; break;
+        }
+        else if(aa==3)
+            switch (n)
+            {
+                case 0:duihuakuang.text = "yzb的老婆跑了过来";n++;break;
+                case 1:
+                    duihuakuang.text = "?:bb你没事吧";
+                    LiHui.GetComponent<Image>().sprite = laopo1;//改变立绘
+                    LiHui.SetActive(true);
+                    n++;break;
+                default:
+                    duihuakuang.text = "?:彬彬~怎么样啦";
+                    LiHui.GetComponent<Image>().sprite = laopo2;//改变立绘
+                    n = 0;AA = 4;break;
+            }
+        else if(aa==4)
+            switch (n)
+            {
+                case 0: duihuakuang.text = "测试结束"; n++; break;
+                default: duihuakuang.text = "回到开始"; n=0;AA = 0; break;
+
+            }
+    }
+
+    // Start is called before the first frame update
+  
+  
+  
+    // Update is called once per frame
+｝
