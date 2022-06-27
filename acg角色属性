@@ -1,0 +1,131 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class jueseshuxing : MonoBehaviour
+{
+    public struct Character_quan
+    {
+        public string namne; //名字
+        public int STR;      //力量
+        public int CON;      //体质
+        public int ITN;      //智力
+        public int DEX;      //敏捷
+        public int POW;      //幸运
+        public int gudin;    //是否完成加点，0否1是
+    }
+    public  Character_quan[]juese=new Character_quan[10];//创建10个角色
+    public int n=0,  aMAX=100;
+    //当前角色编号，总自由点
+    public Text tSTR, tCON, tDEX, tITN, tPOW, tNAME,tMAIN;
+    //力量，体质，敏捷，智力，幸运，角色名 (编号),剩余属性点显示
+    public Text Nowname;
+
+    public void queding()//确定属性
+    {
+        if (juese[n].STR+juese[n].CON+ juese[n].DEX+ juese[n].ITN+ juese[n].POW==aMAX)
+        juese[n].gudin = 1;
+    }
+    public void xiayige()//换人
+    {
+        n = n + 1;
+        if (n == 10) n = 0;
+        xianshi();
+    }
+
+    public void STR_jia()
+    {
+            juese[n].STR =jiaorjian(75,1, juese[n].STR);
+            xianshi();    
+    }
+
+    public void STR_jian()
+    {
+        juese[n].STR = jiaorjian(0,0, juese[n].STR);
+            xianshi();
+    }
+
+    public void CON_jia()
+    {
+        juese[n].CON = jiaorjian(75, 1, juese[n].CON);
+        xianshi();
+    }
+
+    public void CON_jian()
+    {
+        juese[n].CON = jiaorjian(0, 0, juese[n].CON);
+        xianshi();
+    }
+    public void DEX_jia()
+    {
+        juese[n].DEX = jiaorjian(75, 1, juese[n].DEX);
+        xianshi();
+    }
+
+    public void DEX_jian()
+    {
+        juese[n].DEX = jiaorjian(0, 0, juese[n].DEX);
+        xianshi();
+    }
+    public void ITN_jia()
+    {
+        juese[n].ITN = jiaorjian(75, 1, juese[n].ITN);
+        xianshi();
+    }
+
+    public void ITN_jian()
+    {
+        juese[n].ITN = jiaorjian(0, 0, juese[n].ITN);
+        xianshi();
+    }
+
+    public void POW_jia()
+    {
+        juese[n].POW = jiaorjian(75, 1, juese[n].POW);
+        xianshi();
+    }
+
+    public void POW_jian()
+    {
+        juese[n].POW = jiaorjian(0, 0, juese[n].POW);
+        xianshi();
+    }
+    //--------------------------------函数
+    int jiaorjian(int max, int p, int shuju)//加减属性
+    {
+        //max表示如果是加，那最大数字是多少，如果是减少值最小是多少
+        //P为1时+，p为0时减
+        //shuju就是改变的那个属性
+        if (juese[n].gudin==0)
+        {
+            if (p == 1)
+           {
+            if (juese[n].STR + juese[n].CON + juese[n].DEX + juese[n].ITN + juese[n].POW < aMAX && shuju < max) return (shuju + 5);
+            else return shuju;
+            }
+        else
+           {
+            if (shuju > max) return (shuju - 5);
+            else return shuju;
+            }
+        }
+       else return shuju;
+    }
+    public void xianshi()//改变文本用
+    {
+        tSTR.text = "力量: " + juese[n].STR;
+        tCON.text = "体质: " + juese[n].CON;
+        tDEX.text = "敏捷: " + juese[n].DEX;
+        tITN.text = "智力: " + juese[n].ITN;
+        tPOW.text = "幸运: " + juese[n].POW;
+        tNAME.text = juese[n].namne;
+        Nowname.text = juese[n].namne;
+
+        tMAIN.text = "力量，体质，敏捷，智力，幸运:0-75\n自由属性点" + (aMAX - juese[n].STR - juese[n].CON - juese[n].DEX - juese[n].ITN - juese[n].POW);
+    }
+    // Start is called before the first frame update
+
+    // Update is called once per frame
+
+}
